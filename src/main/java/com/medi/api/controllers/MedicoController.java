@@ -1,8 +1,11 @@
 package com.medi.api.controllers;
 
 import com.medi.api.medico.DadosCadastroMedicoDTO;
+import com.medi.api.medico.DadosListagemMedicoDTO;
 import com.medi.api.medico.Medico;
 import com.medi.api.medico.MedicoRepository;
+
+import jakarta.validation.Valid;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,9 +16,9 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -25,16 +28,15 @@ public class MedicoController {
     private MedicoRepository repository;
     @PostMapping
     @Transactional
-    public Medico createMedico(@RequestBody DadosCadastroMedicoDTO dados){
+    public Medico createMedico(@RequestBody @Valid DadosCadastroMedicoDTO dados){
         Medico medico = new Medico(dados);
         repository.save(medico);
         return medico;
     }
 
     @GetMapping
-    @Transactional
-    public List<Medico> getMedicos(){
-        List<Medico> medicos = repository.findAll();
+    public List<DadosListagemMedicoDTO> getMedicos(){
+        List<DadosListagemMedicoDTO> medicos = repository.findAll().stream().map(DadosListagemMedicoDTO::new).toList();
         return medicos;
     }
 
@@ -55,4 +57,6 @@ public class MedicoController {
         if(optionalMedico.isEmpty()) throw new Exception("Médico não encontrado");
         return optionalMedico.get();
     }
+
+    
 }
