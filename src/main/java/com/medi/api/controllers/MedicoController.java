@@ -36,18 +36,15 @@ public class MedicoController {
     @GetMapping
     public Page<DadosListagemMedicoDTO> getMedicos(Pageable paginacao){
         return repository
-                .findAll(paginacao)
+                .findAllByAtivoTrue(paginacao)
                 .map(DadosListagemMedicoDTO::new);
     }
 
     @DeleteMapping("/{id}")
     @Transactional
-    public Medico deleteMedico(@PathVariable Long id) throws Exception{
-        Optional<Medico> medicoOptional = repository.findById(id);
-        if(medicoOptional.isEmpty()) throw new Exception("Médico Não  encontrado");
-        Medico medico = medicoOptional.get();
-        repository.delete(medico);
-        return medico;
+    public void deleteMedico(@PathVariable Long id){
+        Medico medico = repository.getReferenceById(id);
+        medico.desativar();
     }
 
     @GetMapping("/{id}")
