@@ -1,9 +1,6 @@
 package com.medi.api.controllers;
 
-import com.medi.api.medico.DadosCadastroMedicoDTO;
-import com.medi.api.medico.DadosListagemMedicoDTO;
-import com.medi.api.medico.Medico;
-import com.medi.api.medico.MedicoRepository;
+import com.medi.api.medico.*;
 
 import jakarta.validation.Valid;
 
@@ -61,5 +58,10 @@ public class MedicoController {
         return optionalMedico.get();
     }
 
-    
+    @PutMapping
+    @Transactional
+    public void updateMedico(@RequestBody MedicoUpdateDTO medicoAtualizado){
+        var medico = repository.getReferenceById(medicoAtualizado.id());
+        medico.update(medicoAtualizado);
+    }
 }
