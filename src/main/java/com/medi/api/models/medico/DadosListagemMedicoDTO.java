@@ -1,4 +1,4 @@
-package com.medi.api.medico;
+package com.medi.api.models.medico;
 
 public record DadosListagemMedicoDTO (Long id,String telefone,String nome, String email, Especialidade especialidade, String crm, Boolean ativo){
 

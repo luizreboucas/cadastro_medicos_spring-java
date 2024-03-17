@@ -1,4 +1,4 @@
-package com.medi.api.medico;
+package com.medi.api.models.medico;
 
 import com.medi.api.endereco.DadosEndereco;
 
