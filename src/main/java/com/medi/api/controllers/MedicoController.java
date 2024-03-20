@@ -1,5 +1,5 @@
 package com.medi.api.controllers;
-import com.medi.api.models.medico.*;
+import com.medi.api.domain.medico.*;
 import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;

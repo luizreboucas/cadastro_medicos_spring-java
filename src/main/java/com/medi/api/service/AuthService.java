@@ -1,6 +1,6 @@
 package com.medi.api.service;
 
-import com.medi.api.models.user.UserRepository;
+import com.medi.api.domain.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

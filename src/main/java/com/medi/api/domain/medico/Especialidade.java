@@ -1,4 +1,4 @@
-package com.medi.api.models.medico;
+package com.medi.api.domain.medico;
 
 public enum Especialidade {
     ORTOPEDIA,
