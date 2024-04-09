@@ -25,4 +25,10 @@ public class Paciente{
         this.email = paciente.email();
         this.endereco = paciente.endereco();
     }
+
+    public void update(PacienteDTO newPaciente){
+        if(newPaciente.email() != null) this.email = newPaciente.email();
+        if(newPaciente.nome() != null) this.nome = newPaciente.nome();
+        if(newPaciente.endereco() != null) this.endereco = newPaciente.endereco();
+    }
 }

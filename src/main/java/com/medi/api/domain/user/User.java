@@ -1,5 +1,6 @@
 package com.medi.api.domain.user;
 
+import com.medi.api.domain.pacientes.PacienteDTO;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -58,4 +59,5 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
 }
