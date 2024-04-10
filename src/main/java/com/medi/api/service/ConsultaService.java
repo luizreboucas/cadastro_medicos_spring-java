@@ -4,6 +4,7 @@ import com.medi.api.domain.consulta.Consulta;
 import com.medi.api.domain.consulta.ConsultaCompletaDTO;
 import com.medi.api.domain.consulta.ConsultaDTO;
 import com.medi.api.domain.consulta.ConsultaRepository;
+import com.medi.api.domain.medico.Medico;
 import com.medi.api.domain.medico.MedicoRepository;
 import com.medi.api.domain.pacientes.PacienteRepository;
 import jakarta.validation.Valid;
@@ -27,4 +28,5 @@ public class ConsultaService {
         consultaRepository.save(consulta);
         return new ConsultaCompletaDTO(consulta);
     }
+
 }
