@@ -1,9 +1,10 @@
 package com.medi.api.domain.pacientes;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.medi.api.domain.endereco.Endereco;
 import jakarta.persistence.*;
 import lombok.*;
-
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name="pacientes")
 @Entity(name = "Paciente")
 @Getter

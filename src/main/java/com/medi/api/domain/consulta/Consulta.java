@@ -1,12 +1,13 @@
 package com.medi.api.domain.consulta;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.medi.api.domain.medico.Medico;
 import com.medi.api.domain.pacientes.Paciente;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
-
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "consultas")
 @Entity(name = "Consulta")
 @Setter

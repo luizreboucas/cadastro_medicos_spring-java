@@ -1,14 +1,15 @@
 package com.medi.api.domain.medico;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.medi.api.domain.endereco.Endereco;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "medicos")
-@Entity(name = "medico")
+@Entity(name = "Medico")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
