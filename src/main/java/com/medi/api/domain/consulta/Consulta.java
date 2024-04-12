@@ -6,6 +6,7 @@ import com.medi.api.domain.pacientes.Paciente;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "consultas")
@@ -25,5 +26,5 @@ public class Consulta {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "paciente_id")
     private Paciente paciente;
-    private Date data_consulta;
+    private LocalDateTime data_consulta;
 }

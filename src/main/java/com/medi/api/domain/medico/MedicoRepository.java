@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public interface MedicoRepository extends JpaRepository<Medico, Long> {
@@ -18,5 +19,5 @@ public interface MedicoRepository extends JpaRepository<Medico, Long> {
             order by rand()
             limit 1
             """)
-    Medico getMedicoPorEspecialidade(Especialidade especialidade, Date data);
+    Medico getMedicoPorEspecialidade(Especialidade especialidade, LocalDateTime data);
 }
