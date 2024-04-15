@@ -2,10 +2,11 @@ package com.medi.api.domain.consulta.validacoes;
 
 import com.medi.api.domain.consulta.ConsultaDTO;
 import com.medi.api.utils.ValidacaoException;
+import org.springframework.stereotype.Component;
 
 import java.time.DayOfWeek;
-
-public class ValidadorDataEHoraAgendamento {
+@Component
+public class ValidadorDataEHoraAgendamento implements ValidadorConsulta{
 
     public void validar(ConsultaDTO consulta){
         var dataConsulta = consulta.data();

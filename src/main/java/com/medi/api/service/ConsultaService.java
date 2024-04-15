@@ -4,6 +4,8 @@ import com.medi.api.domain.consulta.Consulta;
 import com.medi.api.domain.consulta.ConsultaCompletaDTO;
 import com.medi.api.domain.consulta.ConsultaDTO;
 import com.medi.api.domain.consulta.ConsultaRepository;
+import com.medi.api.domain.consulta.validacoes.ValidadorApenasUmaConsultaPorDia;
+import com.medi.api.domain.consulta.validacoes.ValidadorConsulta;
 import com.medi.api.domain.medico.Medico;
 import com.medi.api.domain.medico.MedicoRepository;
 import com.medi.api.domain.pacientes.PacienteRepository;
@@ -13,6 +15,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ConsultaService {
     @Autowired
@@ -21,11 +25,16 @@ public class ConsultaService {
     private MedicoRepository medicoRepository;
     @Autowired
     private PacienteRepository pacienteRepository;
+    @Autowired
+    private List<ValidadorConsulta> validadores;
 
     public ConsultaCompletaDTO createConsulta(ConsultaDTO consultaDto){
         var medico = getMedico(consultaDto);
         var paciente = pacienteRepository.findById(consultaDto.paciente_id()).get();
         var data = consultaDto.data();
+        validadores.forEach(validador -> {
+            validador.validar(consultaDto);
+        });
         var consulta = new Consulta(null,medico,paciente,data);
         consultaRepository.save(consulta);
         return new ConsultaCompletaDTO(consulta);
