@@ -21,6 +21,4 @@ public record DadosCadastroMedicoDTO(
         String crm,
         @NotNull
         Especialidade especialidade,
-        @NotNull
-        @Valid
         DadosEndereco endereco) {}
