@@ -4,6 +4,8 @@ import com.medi.api.domain.consulta.ConsultaCompletaDTO;
 import com.medi.api.domain.consulta.ConsultaDTO;
 import com.medi.api.domain.consulta.ConsultaRepository;
 import com.medi.api.service.ConsultaService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/consulta")
+@SecurityRequirement(name = "bearer-key")
 public class ConsultaController {
 
     @Autowired

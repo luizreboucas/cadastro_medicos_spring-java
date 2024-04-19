@@ -4,6 +4,7 @@ import com.medi.api.domain.pacientes.Paciente;
 import com.medi.api.domain.pacientes.PacienteCadastroDTO;
 import com.medi.api.domain.pacientes.PacienteDTO;
 import com.medi.api.domain.pacientes.PacienteRepository;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +16,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/paciente")
+@SecurityRequirement(name = "bearer-key")
 public class PacienteController {
     @Autowired
     PacienteRepository repository;

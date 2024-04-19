@@ -12,6 +12,6 @@ public class ValidadorApenasUmaConsultaPorDia implements ValidadorConsulta{
     private ConsultaRepository consultaRepository;
 
     public void validar(ConsultaDTO consulta){
-        if(consultaRepository.existeConsultaNoMesmoDia(consulta) != null) throw new ValidacaoException("já existe uma consulta marcada para esse dia");
+        if(consultaRepository.existeConsultaNoMesmoDia(consulta.medico_id(), consulta.data()) != null) throw new ValidacaoException("já existe uma consulta marcada para esse dia");
     }
 }
