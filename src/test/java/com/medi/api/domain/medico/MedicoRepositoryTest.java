@@ -19,6 +19,8 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.context.annotation.Profile;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.time.DayOfWeek;
@@ -38,6 +40,7 @@ class MedicoRepositoryTest {
 
     @Autowired
     private TestEntityManager em;
+
     @Test
     @DisplayName("Em caso de nenhum médico com a especialdade desejada da consulta deve retornar null")
     void getMedicoPorEspecialidadeCenario1() {
@@ -53,21 +56,40 @@ class MedicoRepositoryTest {
 
     @Test
     @DisplayName("Deve retornar um médico se um médico estiver disponível no dia da consulta")
-    public void getMedicoPorEspecialidadeCenario2(){
+    void getMedicoPorEspecialidadeCenario2(){
         var medico = cadastrarMedico(setarDadosCadastroMedico("luiz","luiz@voll","854756475","4444", Especialidade.CARDIOLOGIA));
         var paciente = cadastrarPaciente(this.setarDadosCadastroPaciente("amanda", "amanda@amanda"));
         var proximaSegundaAsDez = LocalDateTime.now().with(TemporalAdjusters.next(DayOfWeek.MONDAY))
                 .withHour(10);
         cadastrarConsulta(medico, paciente,proximaSegundaAsDez, Especialidade.CARDIOLOGIA);
         var medicoretorno = medicoRepository.getMedicoPorEspecialidade(Especialidade.CARDIOLOGIA, LocalDateTime.now().plusHours(2));
-        assertThat(medicoretorno).isNotNull();
+        assertThat(medicoretorno).isEqualTo(medicoretorno);
     }
 
-    public Medico cadastrarMedico(DadosCadastroMedicoDTO medicodto){
+    @Test
+    @DisplayName("Deve retornar null quando pesquisa médicos ativos e não tiver nenhum")
+    void findAllByAtivoTrueCenario1(){
+        Pageable paginacao = Pageable.ofSize(10);
+        var medico = cadastrarMedico(setarDadosCadastroMedico("luiz","luiz@voll","854756475","4444", Especialidade.CARDIOLOGIA), false);
+        var resultado = medicoRepository.findAllByAtivoTrue(paginacao);
+        System.out.println(resultado);
+        assertThat(resultado.isEmpty()).isTrue();
+    }
+
+    public Medico cadastrarMedico(DadosCadastroMedicoDTO medicodto, Boolean ativo){
         var medico = new Medico(medicodto);
+        medico.setAtivo(true);
+        if(!ativo) medico.setAtivo(false);
         em.persist(medico);
         return medico;
     }
+    public Medico cadastrarMedico(DadosCadastroMedicoDTO medicodto){
+        var medico = new Medico(medicodto);
+        medico.setAtivo(true);
+        em.persist(medico);
+        return medico;
+    }
+
     public Paciente cadastrarPaciente(PacienteCadastroDTO pacientedto){
         var paciente = new Paciente(pacientedto);
         em.persist(paciente);

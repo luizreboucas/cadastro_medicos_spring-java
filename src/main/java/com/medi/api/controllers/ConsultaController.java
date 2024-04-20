@@ -28,8 +28,6 @@ public class ConsultaController {
         System.out.println("antes de criar a consulta");
         var consultaCompleta = consultaService.createConsulta(consulta);
         System.out.println(consultaCompleta);
-        System.out.println("consulta deu certo!!!!!!!!!!!!!!");
-        if(consultaCompleta == null) throw new RuntimeException("Não foi possível criar consulta");
         return ResponseEntity.ok(consultaCompleta);
     }
 
